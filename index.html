@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رياض لبيع السلع</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar a {
+            float: right;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="#home">رياض لبيع السلع</a>
+</div>
+
+<div class="container">
+    <div class="form-group">
+        <label for="product">اختر المنتج</label>
+        <select id="product" name="product">
+            <option value="watch">ساعة</option>
+            <option value="phone">هاتف</option>
+            <option value="android">أندرويد</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="fullName">اكتب اسمك بالكامل</label>
+        <input type="text" id="fullName" name="fullName" placeholder="اسمك الكامل">
+    </div>
+
+    <div class="form-group">
+        <label for="address">اكتب عنوانك بالكامل</label>
+        <input type="text" id="address" name="address" placeholder="عنوانك الكامل">
+    </div>
+
+    <div class="form-group">
+        <label for="country">اختر دولتك</label>
+        <select id="country" name="country">
+            <option value="iraq">العراق</option>
+            <option value="egypt">مصر</option>
+            <option value="palestine">فلسطين</option>
+            <option value="jordan">الأردن</option>
+            <option value="libya">ليبيا</option>
+            <option value="saudi">السعودية</option>
+            <option value="oman">عمان</option>
+        </select>
+    </div>
+
+    <button onclick="goToPaymentPage()">متابعة الشراء</button>
+</div>
+
+<script>
+    function goToPaymentPage() {
+        window.location.href = "payment.html";
+    }
+</script>
+
+</body>
+</html>
+
+<!-- Payment Page -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معلومات الدفع</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+        }
+        .container {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-group">
+        <label for="paymentMethod">اختار طريقة الدفع</label>
+        <select id="paymentMethod" name="paymentMethod">
+            <option value="vodafone">فودافون كاش</option>
+            <option value="orange">أورنج كاش</option>
+            <option value="etisalat">اتصالات كاش</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="phoneNumber">حول على هذا الرقم: 01099819012 <button onclick="copyPhoneNumber()">نسخ</button></label>
+    </div>
+
+    <div class="form-group">
+        <label for="transferNumber">الرقم الذي حولت منه</label>
+        <input type="text" id="transferNumber" name="transferNumber" placeholder="أدخل رقم التحويل">
+    </div>
+
+    <button onclick="goToOrderDetailsPage()">متابعة الشراء</button>
+</div>
+
+<script>
+    function copyPhoneNumber() {
+        navigator.clipboard.writeText('01099819012');
+        alert('تم نسخ الرقم');
+    }
+
+    function goToOrderDetailsPage() {
+        var product = document.getElementById('product').value;
+        var transferNumber = document.getElementById('transferNumber').value;
+        window.location.href = `order-details.html?product=${product}&transferNumber=${transferNumber}`;
+    }
+</script>
+
+</body>
+</html>
+
+<!-- Order Details Page -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل طلبك</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+        }
+        .container {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-group">
+        <label>الرقم الذي حولت منه: <span id="displayTransferNumber"></span></label>
+    </div>
+
+    <div class="form-group">
+        <label>المنتج الذي اخترته: <span id="displayProduct"></span></label>
+    </div>
+
+    <button onclick="sendOrderDetails()">متابعة الشراء</button>
+</div>
+
+<script>
+    window.onload = function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var product = urlParams.get('product');
+        var transferNumber = urlParams.get('transferNumber');
+        
+        document.getElementById('displayProduct').textContent = product;
+        document.getElementById('displayTransferNumber').textContent = transferNumber;
+    };
+
+    function sendOrderDetails() {
+        var product = document.getElementById('displayProduct').textContent;
+        var transferNumber = document.getElementById('displayTransferNumber').textContent;
+        var message = `تفاصيل الطلب:\nالمنتج: ${product}\nالرقم الذي حولت منه: ${transferNumber}`;
+        window.open(`https://wa.me/201099819012?text=${encodeURIComponent(message)}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
