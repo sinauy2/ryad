@@ -3,117 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر سيناوي</title>
+    <title>معاينة الأكواد</title>
     <style>
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
         }
-
-        .navbar {
-            background-color: #201747;
-            color: white;
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: auto;
+        }
+        .editor {
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+        .code-area {
+            flex: 1;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-family: monospace;
+            height: 200px;
+        }
+        .buttons {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 15px 50px;
+            margin: 5px;
         }
-
-        .navbar .store-name {
-            font-size: 24px;
-            font-weight: bold;
+        .buttons button {
+            padding: 10px;
         }
-
-        .navbar .menu-btn {
-            cursor: pointer;
-            background-color: white;
-            color: #201747;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-        }
-
-        .side-menu {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background-color: white;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-            padding: 20px;
-        }
-
-        .side-menu.open {
-            transform: translateX(0);
-        }
-
-        .side-menu .close-btn {
-            cursor: pointer;
-            background-color: #ff4d4d;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            display: block;
-            margin: 20px auto;
-            font-size: 18px;
-        }
-
-        .side-menu .menu-item {
-            padding: 15px 0;
-            font-size: 18px;
-            color: #201747;
-            text-align: center;
-        }
-
-        .side-menu .menu-item + .menu-item {
-            border-top: 1px solid #dcdcdc;
-        }
-
-        .center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-            }
-
-            .side-menu {
-                width: 100%;
-            }
+        .preview {
+            flex: 1;
+            border: 1px solid #ccc;
+            margin: 5px;
+            overflow: auto;
+            height: 300px;
         }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <div class="store-name">متجر سيناوي</div>
-        <button class="menu-btn" onclick="openMenu()">فتح القائمة الجانبية</button>
-    </div>
 
-    <div class="side-menu" id="sideMenu">
-        <div class="menu-item">من نحن</div>
-        <div class="menu-item">اتصل بنا</div>
-        <div class="menu-item">مواعيد العمل</div>
-        <div class="menu-item">قسم الادمن</div>
-        <button class="close-btn" onclick="closeMenu()">إغلاق</button>
+    <div class="container">
+        <div class="editor">
+            <textarea id="code" class="code-area" placeholder="اكتب كود HTML وCSS وJavaScript هنا"></textarea>
+            <div class="buttons">
+                <button onclick="clearCode()">حذف الكود</button>
+            </div>
+        </div>
+        <iframe id="preview" class="preview"></iframe>
     </div>
 
     <script>
-        function openMenu() {
-            document.getElementById('sideMenu').classList.add('open');
+        const codeArea = document.getElementById('code');
+        const previewFrame = document.getElementById('preview');
+
+        codeArea.addEventListener('input', updatePreview);
+
+        function updatePreview() {
+            const code = codeArea.value;
+            const preview = previewFrame.contentDocument || previewFrame.contentWindow.document;
+
+            preview.open();
+            preview.write(code);
+            preview.close();
         }
 
-        function closeMenu() {
-            document.getElementById('sideMenu').classList.remove('open');
+        function clearCode() {
+            codeArea.value = '';
+            updatePreview();
         }
     </script>
+
 </body>
 </html>
